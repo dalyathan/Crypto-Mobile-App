@@ -6,7 +6,7 @@ class FourDotsPainter extends CustomPainter {
   FourDotsPainter(this.foregroundColor);
   @override
   void paint(Canvas canvas, Size size) {
-    double dotsRadius = size.width * 0.05;
+    double dotsRadius = size.width * 0.1;
     Paint brush = Paint()
       ..color = foregroundColor
       ..strokeWidth = 2;
