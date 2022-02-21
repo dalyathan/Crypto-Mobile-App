@@ -1,16 +1,14 @@
-# crypto_mobile_app
+# Crypto Mobile App
 
-A new Flutter project.
+A flutter implementation of [Crypto Mobile App Design](https://dribbble.com/shots/15931039-Crypto-Mobile-App-Design) by [Ghulam Rasool](https://dribbble.com/ghulaam-rasool)
 
-## Getting Started
+Get the "app" [here]()
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+![Design](https://cdn.dribbble.com/users/1615584/screenshots/15931039/media/4e9ad324083fbd6c47bf538039d861cf.jpg)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+6.5 inches and 720X1600 pixles|  4 inches and 320X534 pixles
+:----------------------------:|:---------------------------:
+![](larger_screen.gif)        |  ![](smaller_screen.gif) 
