@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
   static Color grapeColor = const Color.fromRGBO(95, 75, 206, 1);
@@ -7,4 +8,5 @@ class MyTheme {
   static Color blueish = const Color.fromRGBO(30, 199, 230, 1);
   static Color blackish = const Color.fromRGBO(8, 28, 79, 1);
   static Color mildYellowish = const Color.fromRGBO(169, 142, 63, 1);
+  static TextStyle textStyle = GoogleFonts.krub();
 }

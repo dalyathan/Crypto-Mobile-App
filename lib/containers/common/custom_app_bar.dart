@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
                   width: height * 0.7,
                   child: Image.asset('assets/images/me.png'))),
           decoration: BoxDecoration(
-              border: Border.all(color: MyTheme.grapeColor),
+              border: Border.all(color: MyTheme.grapeColor, width: 0.5),
               borderRadius: BorderRadius.circular(height * 0.2)),
         )
       ],

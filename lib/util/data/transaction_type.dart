@@ -1,0 +1,1 @@
+enum TransactionType { spent, earned }
