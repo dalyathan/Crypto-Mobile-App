@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../containers/common/custom_app_bar.dart';
 import '../containers/home/price_header.dart';
+import '../containers/home/transaction.dart';
 
 class HomeRoute extends StatelessWidget {
   const HomeRoute({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomeRoute extends StatelessWidget {
     double topPaddingRatio = 0.05;
     Size size = MediaQuery.of(context).size;
     double appBarHeightRatio = 0.075;
+    double maxAllowedWidth = size.width * (1 - 2 * horizonalPaddingRatio);
     return SafeArea(
       child: SafeArea(
         child: Scaffold(
@@ -24,12 +26,17 @@ class HomeRoute extends StatelessWidget {
                   children: [
                     CustomAppBar(
                       height: size.height * appBarHeightRatio,
-                      width: size.width * (1 - 2 * horizonalPaddingRatio),
+                      width: maxAllowedWidth,
                     ),
                     Center(
                       child: PriceHeader(
                         height: size.height * 0.15,
                         width: size.width * 0.8,
+                      ),
+                    ),
+                    Center(
+                      child: Transaction(
+                        width: maxAllowedWidth,
                       ),
                     )
                   ],

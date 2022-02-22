@@ -1,5 +1,10 @@
+import 'package:crypto_mobile_app/containers/home/spent.dart';
+
+import '../../state/transactio_state.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'earned.dart';
+import 'time_period.dart';
 
 class Transaction extends StatefulWidget {
   final double width;
@@ -11,33 +16,56 @@ class Transaction extends StatefulWidget {
 
 class _TransactionState extends State<Transaction> {
   late Map<String, String> timePeriods;
+  late String selectedTimePeriod;
+  late List<String> dropdownItems;
+  late String rangeOfDays;
+  late double periodSpending;
+  late double periodEarning;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    DateTime today = DateTime.now();
-    DateTime oneMonthAgo = today.subtract(const Duration(days: 30));
-    DateTime threeMonthsAgo = today.subtract(const Duration(days: 90));
-    DateTime sixMonthsAgo = today.subtract(const Duration(days: 180));
-    DateTime oneYearAgo = today.subtract(const Duration(days: 365));
-    timePeriods[
-            '${DateFormat("MMMM").format(oneMonthAgo)} ${oneMonthAgo.day} - ${DateFormat("MMMM").format(today)} ${today.day}}'] =
-        '1 Month';
-    timePeriods[
-            '${DateFormat("MMMM").format(threeMonthsAgo)} ${threeMonthsAgo.day} - ${DateFormat("MMMM").format(today)} ${today.day}}'] =
-        '3 Months';
-    timePeriods[
-            '${DateFormat("MMMM").format(sixMonthsAgo)} ${sixMonthsAgo.day} - ${DateFormat("MMMM").format(today)} ${today.day}}'] =
-        '6 Months';
-    timePeriods[
-            '${DateFormat("MMMM").format(oneYearAgo)} ${oneYearAgo.day} - ${DateFormat("MMMM").format(today)} ${today.day}}'] =
-        '1 Year';
+    timePeriods = TransactionState.getTimePeriods();
+    dropdownItems = List<String>.from(timePeriods.keys);
+    selectedTimePeriod = dropdownItems[0];
+    rangeOfDays = List<String>.from(timePeriods.values)[0];
+    periodSpending = TransactionState.getSpentAmount(selectedTimePeriod);
+    periodEarning = TransactionState.getEarnedAmount(selectedTimePeriod);
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double spentContainerWidth = widget.width * 0.4;
+    double spentContainerheight = size.height * 0.075;
     return Column(
-      children: [],
+      children: [
+        TimePeriod(
+            dropdownItems: dropdownItems,
+            dropdownValue: selectedTimePeriod,
+            rangeOfDays: rangeOfDays,
+            updatePeriod: (String? value) => setState(() {
+                  selectedTimePeriod = value!;
+                  rangeOfDays = timePeriods[selectedTimePeriod]!;
+                  periodSpending =
+                      TransactionState.getEarnedAmount(selectedTimePeriod);
+                  periodEarning =
+                      TransactionState.getEarnedAmount(selectedTimePeriod);
+                }),
+            width: widget.width),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Spent(
+                width: spentContainerWidth,
+                height: spentContainerheight,
+                amount: periodSpending),
+            Earned(
+                width: spentContainerWidth,
+                height: spentContainerheight,
+                amount: periodEarning),
+          ],
+        )
+      ],
     );
   }
 }
