@@ -7,6 +7,7 @@ class TransactionState {
     '6 Months',
     '1 Year'
   ];
+
   static Map<String, String> getTimePeriods() {
     Map<String, String> timePeriods = {};
     DateTime today = DateTime.now();

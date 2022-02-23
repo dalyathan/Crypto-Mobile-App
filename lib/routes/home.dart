@@ -13,7 +13,7 @@ class HomeRoute extends StatelessWidget {
     double topPaddingRatio = 0.05;
     Size size = MediaQuery.of(context).size;
     double appBarHeightRatio = 0.075;
-    double maxAllowedWidth = size.width * (1 - 2 * horizonalPaddingRatio);
+    double maxAvailableWidth = size.width * (1 - 2 * horizonalPaddingRatio);
     return SafeArea(
       child: SafeArea(
         child: Scaffold(
@@ -26,7 +26,7 @@ class HomeRoute extends StatelessWidget {
                   children: [
                     CustomAppBar(
                       height: size.height * appBarHeightRatio,
-                      width: maxAllowedWidth,
+                      width: maxAvailableWidth,
                     ),
                     Center(
                       child: PriceHeader(
@@ -36,7 +36,7 @@ class HomeRoute extends StatelessWidget {
                     ),
                     Center(
                       child: Transaction(
-                        width: maxAllowedWidth,
+                        width: maxAvailableWidth,
                       ),
                     )
                   ],

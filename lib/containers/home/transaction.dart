@@ -1,6 +1,6 @@
 import 'package:crypto_mobile_app/containers/home/spent.dart';
 
-import '../../state/transactio_state.dart';
+import '../../state/transaction_state.dart';
 import 'package:flutter/material.dart';
 
 import 'earned.dart';
@@ -35,7 +35,7 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double spentContainerWidth = widget.width * 0.4;
+    double spentContainerWidth = widget.width * 0.45;
     double spentContainerheight = size.height * 0.075;
     return Column(
       children: [
