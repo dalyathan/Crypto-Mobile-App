@@ -47,7 +47,7 @@ class _TransactionState extends State<Transaction> {
                   selectedTimePeriod = value!;
                   rangeOfDays = timePeriods[selectedTimePeriod]!;
                   periodSpending =
-                      TransactionState.getEarnedAmount(selectedTimePeriod);
+                      TransactionState.getSpentAmount(selectedTimePeriod);
                   periodEarning =
                       TransactionState.getEarnedAmount(selectedTimePeriod);
                 }),
