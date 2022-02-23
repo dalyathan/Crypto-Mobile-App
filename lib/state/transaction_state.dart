@@ -9,6 +9,13 @@ class TransactionState {
     '6 Months',
     '1 Year'
   ];
+  static Map<String, int> daysAgo = {
+    _periods[0]: 30,
+    _periods[1]: 90,
+    _periods[2]: 180,
+    _periods[3]: 365
+  };
+  static final DateFormat _monthFormat = DateFormat("MMM");
 
   static double maxAllowedSpendingPerday = 500.00;
   static double minAllowedSpendingPerday = 0.00;
@@ -16,47 +23,52 @@ class TransactionState {
   static Map<String, String> getTimePeriods() {
     Map<String, String> timePeriods = {};
     DateTime today = DateTime.now();
-    DateTime oneMonthAgo = today.subtract(const Duration(days: 30));
-    DateTime threeMonthsAgo = today.subtract(const Duration(days: 90));
-    DateTime sixMonthsAgo = today.subtract(const Duration(days: 180));
-    DateTime oneYearAgo = today.subtract(const Duration(days: 365));
-    var monthFormat = DateFormat("MMM");
-    timePeriods[_periods[0]] =
-        '${monthFormat.format(oneMonthAgo)} ${oneMonthAgo.day} - ${monthFormat.format(today)} ${today.day}';
-    timePeriods[_periods[1]] =
-        '${monthFormat.format(threeMonthsAgo)} ${threeMonthsAgo.day} - ${monthFormat.format(today)} ${today.day}';
-    timePeriods[_periods[2]] =
-        '${monthFormat.format(sixMonthsAgo)} ${sixMonthsAgo.day} - ${monthFormat.format(today)} ${today.day}';
-    timePeriods[_periods[3]] =
-        '${monthFormat.format(oneYearAgo)} ${oneYearAgo.day} - ${monthFormat.format(today)} ${today.day}';
+
+    for (String period in _periods) {
+      DateTime ago = today.subtract(Duration(days: daysAgo[period]!));
+      timePeriods[period] =
+          '${_monthFormat.format(ago)} ${ago.day} - ${_monthFormat.format(today)} ${today.day}';
+    }
     return timePeriods;
   }
 
-  Map<String, String> getYearlySpending() {
-    Map<String, String> spending = {};
-    DateTime today = DateTime.now();
-    DateTime oneYearAgo = today.subtract(const Duration(days: 365));
+  static Map<String, double> _getTransactionIn(
+      String timePeriod, double Function(String) amountGetter) {
+    Map<String, double> spending = {};
+    int numberOfDays = daysAgo[timePeriod]!;
+    List<String> listOfDays = daysThisAgo(numberOfDays);
+    List<double> listOfSpending =
+        _randomsWhichSumto(amountGetter(timePeriod), numberOfDays);
+    for (int dayIndex = 0; dayIndex < numberOfDays; dayIndex++) {
+      spending[listOfDays[dayIndex]] = listOfSpending[dayIndex];
+    }
     return spending;
   }
 
-  double randomsInRangeWhichSumto(
-      double min, double max, double sum, int amount) {
-    assert(min * amount <= sum && max * amount >= sum);
+  static Map<String, double> getSpendingIn(String timePeriod) =>
+      _getTransactionIn(timePeriod, getSpentAmount);
+
+  static Map<String, double> getEarningIn(String timePeriod) =>
+      _getTransactionIn(timePeriod, getSpentAmount);
+
+  static List<String> daysThisAgo(int numberOfDays) {
+    DateTime today = DateTime.now();
+    return List<String>.generate(
+        numberOfDays,
+        (index) =>
+            '${_monthFormat.format(today.subtract(Duration(days: numberOfDays - index - 1)))} ${today.subtract(Duration(days: numberOfDays - index - 1)).day}');
+  }
+
+  static List<double> _randomsWhichSumto(double sum, int amount) {
+    double randomMin = 0.00;
+    double randomMax = 100.00;
     Random random = Random();
-    double median = (min + max) / 2;
-    double fromMin = median - min + 1;
-    double fromMax = max - median + 1;
-    List<double> values = List.generate(amount, (index) => min);
-    double difference;
-    for (int index = 0; index < amount; index++) {
-      if (values[index] > min || values[index] < max) {
-        difference = random.nextDouble() * (values[index] - min) + min;
-        values[index] -= difference;
-        int randomIndex = random.nextInt(amount);
-        while (values[randomIndex] + difference > min ||
-            values[randomIndex] < max) {}
-      }
-    }
+    List<double> randomsWithoutCriteria = List<double>.generate(amount,
+        (index) => random.nextDouble() * (randomMax - randomMin) + randomMin);
+    double randomSum = randomsWithoutCriteria.reduce((a, b) => a + b);
+    List<double> randomsWithCriteria = List<double>.generate(
+        amount, (index) => (sum / randomSum) * randomsWithoutCriteria[index]);
+    return randomsWithCriteria;
   }
 
   static double getSpentAmount(String timePeriod) {

@@ -4,18 +4,17 @@ import 'package:flutter/material.dart';
 class BrokenLine extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    double dashLength = size.width * 0.05;
+    double dashLength = size.width * 0.005;
+    double gap = size.width * 0.01;
     Paint brush = Paint()
       ..color = MyTheme.blackish
       ..strokeWidth = size.height;
     Offset drawPoint = Offset(0, size.height * 0.5);
     Path brokenLinePath = Path();
     while (drawPoint.dx < size.width) {
-      brokenLinePath.moveTo(drawPoint.dx, drawPoint.dy);
-      brokenLinePath.lineTo(drawPoint.dx + dashLength, drawPoint.dy);
-      drawPoint = Offset(drawPoint.dx + 2 * dashLength, drawPoint.dy);
+      canvas.drawLine(drawPoint, drawPoint.translate(dashLength, 0), brush);
+      drawPoint = drawPoint.translate(gap, 0);
     }
-    canvas.drawPath(brokenLinePath, brush);
   }
 
   @override
