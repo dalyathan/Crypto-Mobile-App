@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:intl/intl.dart';
 
 class TransactionState {
@@ -7,6 +9,9 @@ class TransactionState {
     '6 Months',
     '1 Year'
   ];
+
+  static double maxAllowedSpendingPerday = 500.00;
+  static double minAllowedSpendingPerday = 0.00;
 
   static Map<String, String> getTimePeriods() {
     Map<String, String> timePeriods = {};
@@ -25,6 +30,33 @@ class TransactionState {
     timePeriods[_periods[3]] =
         '${monthFormat.format(oneYearAgo)} ${oneYearAgo.day} - ${monthFormat.format(today)} ${today.day}';
     return timePeriods;
+  }
+
+  Map<String, String> getYearlySpending() {
+    Map<String, String> spending = {};
+    DateTime today = DateTime.now();
+    DateTime oneYearAgo = today.subtract(const Duration(days: 365));
+    return spending;
+  }
+
+  double randomsInRangeWhichSumto(
+      double min, double max, double sum, int amount) {
+    assert(min * amount <= sum && max * amount >= sum);
+    Random random = Random();
+    double median = (min + max) / 2;
+    double fromMin = median - min + 1;
+    double fromMax = max - median + 1;
+    List<double> values = List.generate(amount, (index) => min);
+    double difference;
+    for (int index = 0; index < amount; index++) {
+      if (values[index] > min || values[index] < max) {
+        difference = random.nextDouble() * (values[index] - min) + min;
+        values[index] -= difference;
+        int randomIndex = random.nextInt(amount);
+        while (values[randomIndex] + difference > min ||
+            values[randomIndex] < max) {}
+      }
+    }
   }
 
   static double getSpentAmount(String timePeriod) {
