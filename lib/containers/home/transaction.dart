@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 import 'earned.dart';
 import 'axes.dart';
+import 'graph.dart';
 import 'time_period.dart';
+import 'transaction_types.dart';
 
 class Transaction extends StatefulWidget {
   final double width;
@@ -39,63 +41,55 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double spentContainerWidth = widget.width * 0.45;
-    double spentContainerheight = size.height * 0.075;
     return Column(
       children: [
         TimePeriod(
             dropdownItems: dropdownItems,
             dropdownValue: selectedTimePeriod,
             rangeOfDays: rangeOfDays,
-            updatePeriod: (String? value) => setState(() {
-                  selectedTimePeriod = value!;
-                  rangeOfDays = timePeriods[selectedTimePeriod]!;
-                  periodSpending =
-                      TransactionState.getSpentAmount(selectedTimePeriod);
-                  periodEarning =
-                      TransactionState.getEarnedAmount(selectedTimePeriod);
-                  if (spentGraphed) {
-                    graphValues =
-                        TransactionState.getSpendingIn(selectedTimePeriod);
-                  } else {
-                    graphValues =
-                        TransactionState.getEarningIn(selectedTimePeriod);
-                  }
-                }),
+            updatePeriod: periodIsUpdated,
             width: widget.width),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () => setState(() {
-                spentGraphed = true;
-                graphValues =
-                    TransactionState.getSpendingIn(selectedTimePeriod);
-              }),
-              child: Spent(
-                  width: spentContainerWidth,
-                  height: spentContainerheight,
-                  amount: periodSpending),
-            ),
-            InkWell(
-              onTap: () => setState(() {
-                spentGraphed = false;
-                graphValues = TransactionState.getEarningIn(selectedTimePeriod);
-              }),
-              child: Earned(
-                  width: spentContainerWidth,
-                  height: spentContainerheight,
-                  amount: periodEarning),
-            ),
-          ],
-        ),
-        Axes(
-          height: size.height * 0.35,
-          yValues: List<double>.from(graphValues.values),
+        TransactionTypes(
           width: widget.width,
-          xValues: List<String>.from(graphValues.keys),
+          graphEarning: graphEarning,
+          graphSpending: graphSpending,
+          periodEarning: periodEarning,
+          periodSpending: periodSpending,
+        ),
+        Graph(
+          height: size.height * 0.35,
+          width: widget.width,
+          graphValues: graphValues,
         )
       ],
     );
+  }
+
+  void periodIsUpdated(String? value) {
+    setState(() {
+      selectedTimePeriod = value!;
+      rangeOfDays = timePeriods[selectedTimePeriod]!;
+      periodSpending = TransactionState.getSpentAmount(selectedTimePeriod);
+      periodEarning = TransactionState.getEarnedAmount(selectedTimePeriod);
+      if (spentGraphed) {
+        graphValues = TransactionState.getSpendingIn(selectedTimePeriod);
+      } else {
+        graphValues = TransactionState.getEarningIn(selectedTimePeriod);
+      }
+    });
+  }
+
+  void graphSpending() {
+    setState(() {
+      spentGraphed = true;
+      graphValues = TransactionState.getSpendingIn(selectedTimePeriod);
+    });
+  }
+
+  void graphEarning() {
+    setState(() {
+      spentGraphed = false;
+      graphValues = TransactionState.getEarningIn(selectedTimePeriod);
+    });
   }
 }

@@ -17,7 +17,7 @@ class TransactionState {
   };
   static final DateFormat _monthFormat = DateFormat("MMM");
 
-  static double maxAllowedSpendingPerday = 500.00;
+  static double maxAllowedSpendingPerday = 100.00;
   static double minAllowedSpendingPerday = 0.00;
 
   static Map<String, String> getTimePeriods() {
@@ -49,7 +49,7 @@ class TransactionState {
       _getTransactionIn(timePeriod, getSpentAmount);
 
   static Map<String, double> getEarningIn(String timePeriod) =>
-      _getTransactionIn(timePeriod, getSpentAmount);
+      _getTransactionIn(timePeriod, getEarnedAmount);
 
   static List<String> daysThisAgo(int numberOfDays) {
     DateTime today = DateTime.now();
@@ -60,11 +60,13 @@ class TransactionState {
   }
 
   static List<double> _randomsWhichSumto(double sum, int amount) {
-    double randomMin = 0.00;
-    double randomMax = 100.00;
     Random random = Random();
-    List<double> randomsWithoutCriteria = List<double>.generate(amount,
-        (index) => random.nextDouble() * (randomMax - randomMin) + randomMin);
+    List<double> randomsWithoutCriteria = List<double>.generate(
+        amount,
+        (index) =>
+            random.nextDouble() *
+                (maxAllowedSpendingPerday - minAllowedSpendingPerday) +
+            minAllowedSpendingPerday);
     double randomSum = randomsWithoutCriteria.reduce((a, b) => a + b);
     List<double> randomsWithCriteria = List<double>.generate(
         amount, (index) => (sum / randomSum) * randomsWithoutCriteria[index]);
@@ -74,18 +76,18 @@ class TransactionState {
   static double getSpentAmount(String timePeriod) {
     return {
       _periods[0]: 1460.00,
-      _periods[1]: 1460098.00,
-      _periods[2]: 146009774.00,
-      _periods[3]: 14608657556.00
+      _periods[1]: 4889.00,
+      _periods[2]: 8567.00,
+      _periods[3]: 17789.00
     }[timePeriod]!;
   }
 
   static double getEarnedAmount(String timePeriod) {
     return {
       _periods[0]: 2730.00,
-      _periods[1]: 17890098.00,
-      _periods[2]: 895609774.00,
-      _periods[3]: 91233445569.00
+      _periods[1]: 7789.00,
+      _periods[2]: 16956.00,
+      _periods[3]: 32239.00
     }[timePeriod]!;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../theme.dart';
 
@@ -7,7 +8,9 @@ class PriceColumn extends StatelessWidget {
   final double amount;
   final double height;
   final double width;
-  const PriceColumn(
+  final NumberFormat oCcy = NumberFormat("#,##0.00", "en_US");
+
+  PriceColumn(
       {Key? key,
       required this.title,
       required this.amount,
@@ -39,7 +42,7 @@ class PriceColumn extends StatelessWidget {
           width: width,
           child: FittedBox(
             child: Text(
-              "\$$amount",
+              "\$${oCcy.format(amount)}",
               style: MyTheme.textStyle.copyWith(
                 color: MyTheme.grapeColor,
                 fontWeight: FontWeight.bold,

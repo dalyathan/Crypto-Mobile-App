@@ -7,52 +7,61 @@ class Axes extends StatelessWidget {
   final List<String> xValues;
   final double height;
   final double width;
+  final double nthYTileHeight;
+  final double xAxisLeftOffset;
+  final double xAxisHeight;
+  final int tiles;
   const Axes(
       {Key? key,
       required this.yValues,
       required this.height,
       required this.width,
-      required this.xValues})
+      required this.xValues,
+      required this.nthYTileHeight,
+      required this.xAxisLeftOffset,
+      required this.xAxisHeight,
+      required this.tiles})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int maxTile = 5;
-    List<double> sortedYaxis = yValues..sort();
-    print('max of list ${sortedYaxis[sortedYaxis.length - 1]}');
     int numofPoints = yValues.length;
+    List<double> sortedYValues = yValues..sort();
+    sortedYValues.insert(0, 0);
     List<int> nthTiles = List<int>.generate(
-        maxTile, (index) => (index + 1) * (numofPoints / maxTile).floor() - 1);
-    double xAxisHeightRatio = 0.075;
-    double yAxisValueRowHeight =
-        height * (1 - xAxisHeightRatio) / (maxTile + 1);
-    double xAxisOffsetRatio = 0.125;
-    double xAxisWidth = width * (1 - xAxisOffsetRatio);
-    return Container(
+        tiles, (index) => (index + 1) * (numofPoints / tiles).floor() - 1);
+    nthTiles.insert(0, 0);
+    double yAxisHeight = height - xAxisHeight;
+    double xAxisWidth = width - xAxisLeftOffset;
+    return SizedBox(
       width: width,
       height: height,
-      // color: Colors.amber,
       child: Column(children: [
-        ...nthTiles.reversed.map((tile) => YAxisValue(
-              height: yAxisValueRowHeight,
-              value: yValues[tile].ceil(),
-              width: width,
-            )),
-        YAxisValue(
-          height: yAxisValueRowHeight,
-          value: 0,
-          width: width,
+        SizedBox(
+          height: yAxisHeight,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: nthTiles.reversed
+                  .map((tileValue) => YAxisValue(
+                        height: nthYTileHeight,
+                        value: sortedYValues[tileValue].ceil(),
+                        width: width,
+                        xAxisLeftOffset: xAxisLeftOffset,
+                      ))
+                  .toList()),
         ),
         Align(
           alignment: Alignment.centerRight,
           child: SizedBox(
             width: xAxisWidth,
+            height: xAxisHeight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: nthTiles
                   .map((tile) => SizedBox(
-                      width: (xAxisWidth / maxTile) * 0.8,
-                      height: height * xAxisHeightRatio,
+                      width: (xAxisWidth / tiles) * 0.8,
+                      height: xAxisHeight * 0.5,
                       child: FittedBox(
                           fit: BoxFit.fill, child: Text(xValues[tile]))))
                   .toList(),

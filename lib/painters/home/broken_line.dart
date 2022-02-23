@@ -7,10 +7,9 @@ class BrokenLine extends CustomPainter {
     double dashLength = size.width * 0.005;
     double gap = size.width * 0.01;
     Paint brush = Paint()
-      ..color = MyTheme.blackish
+      ..color = MyTheme.grapeColor
       ..strokeWidth = size.height;
     Offset drawPoint = Offset(0, size.height * 0.5);
-    Path brokenLinePath = Path();
     while (drawPoint.dx < size.width) {
       canvas.drawLine(drawPoint, drawPoint.translate(dashLength, 0), brush);
       drawPoint = drawPoint.translate(gap, 0);
