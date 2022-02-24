@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+import '../../painters/home/button_shadow.dart';
 
 class Button3D extends StatelessWidget {
   final Widget arrow;
@@ -13,48 +15,36 @@ class Button3D extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double gradientHeightRatio = 0.875;
     double gradientWidth = size;
-    double gradientHeight = size * 0.875;
-    BorderRadius borderRadius = BorderRadius.circular(size * 0.15);
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: size,
-          height: size,
-          child: Center(
-            child: SizedBox(
-              height: size * 0.6,
-              child: FittedBox(fit: BoxFit.fitHeight, child: arrow),
+    double gradientHeight = size * gradientHeightRatio;
+    double borderRadiusRatio = 0.15;
+    BorderRadius borderRadius = BorderRadius.circular(size * borderRadiusRatio);
+    return Neumorphic(
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          boxShape: NeumorphicBoxShape.roundRect(borderRadius),
+          depth: 8,
+          lightSource: LightSource.topLeft,
+          color: Colors.transparent),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: size,
+            height: size,
+            child: Center(
+              child: SizedBox(
+                height: size * 0.6,
+                child: FittedBox(fit: BoxFit.fitHeight, child: arrow),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Color.lerp(buttonColor, Colors.white, 0.1),
+              borderRadius: borderRadius,
             ),
           ),
-          decoration: BoxDecoration(
-            color: Color.lerp(buttonColor, Colors.white, 0.1),
-            borderRadius: borderRadius,
-          ),
-        ),
-        Container(
-          width: gradientWidth,
-          height: gradientHeight,
-          decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            gradient: const LinearGradient(
-                begin: Alignment(0, -1),
-                end: Alignment(0, 1),
-                colors: <Color>[
-                  Colors.black12,
-                  Colors.white10,
-                ],
-                stops: [
-                  0.025,
-                  0.5,
-                ],
-                tileMode: TileMode.decal),
-          ),
-        ),
-        Positioned(
-          top: size - gradientHeight,
-          child: Container(
+          Container(
             width: gradientWidth,
             height: gradientHeight,
             decoration: BoxDecoration(
@@ -67,14 +57,19 @@ class Button3D extends StatelessWidget {
                     Colors.white10,
                   ],
                   stops: [
-                    0.8,
-                    0.9,
+                    0.025,
+                    0.5,
                   ],
                   tileMode: TileMode.decal),
             ),
           ),
-        )
-      ],
+          CustomPaint(
+            painter:
+                ButtonShadowPainter(borderRadiusRatio, gradientHeightRatio),
+            size: Size.square(size),
+          )
+        ],
+      ),
     );
   }
 }

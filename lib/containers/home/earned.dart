@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme.dart';
-import 'button3d.dart';
-import 'price_column.dart';
+import 'period_total.dart';
 
 class Earned extends StatelessWidget {
   final double width;
@@ -17,29 +16,16 @@ class Earned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return PeriodTotal(
+      amount: amount,
       width: width,
       height: height,
-      //color: Colors.amber,
-      child: Row(
-        children: [
-          Button3D(
-            arrow: const Icon(
-              Icons.south,
-              color: Colors.white,
-            ),
-            buttonColor: MyTheme.blueish,
-            size: height,
-          ),
-          const Spacer(),
-          PriceColumn(
-              title: 'Earned',
-              amount: amount,
-              height: height,
-              width: width * 0.4)
-        ],
+      arrowIcon: const Icon(
+        Icons.south,
+        color: Colors.white,
       ),
+      backgroundColor: MyTheme.blueish,
+      title: 'Earned',
     );
-    ;
   }
 }

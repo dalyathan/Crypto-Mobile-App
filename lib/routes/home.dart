@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../containers/common/bottom_navbar.dart';
 import '../containers/common/custom_app_bar.dart';
 import '../containers/home/price_header.dart';
 import '../containers/home/transaction.dart';
@@ -14,33 +15,40 @@ class HomeRoute extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double appBarHeightRatio = 0.075;
     double maxAvailableWidth = size.width * (1 - 2 * horizonalPaddingRatio);
+    double bottomNavBarWidth = maxAvailableWidth * 0.7;
+    double bottomNavBarAspectRatio = 1.66;
     return SafeArea(
       child: SafeArea(
         child: Scaffold(
-            body: Padding(
-                padding: EdgeInsets.only(
-                    top: size.height * topPaddingRatio,
-                    left: size.width * horizonalPaddingRatio,
-                    right: size.width * horizonalPaddingRatio),
-                child: Column(
-                  children: [
-                    CustomAppBar(
-                      height: size.height * appBarHeightRatio,
-                      width: maxAvailableWidth,
-                    ),
-                    Center(
-                      child: PriceHeader(
-                        height: size.height * 0.15,
-                        width: size.width * 0.8,
-                      ),
-                    ),
-                    Center(
-                      child: Transaction(
-                        width: maxAvailableWidth,
-                      ),
-                    )
-                  ],
-                ))),
+          body: Padding(
+            padding: EdgeInsets.only(
+                top: size.height * topPaddingRatio,
+                left: size.width * horizonalPaddingRatio,
+                right: size.width * horizonalPaddingRatio),
+            child: Column(
+              children: [
+                CustomAppBar(
+                  height: size.height * appBarHeightRatio,
+                  width: maxAvailableWidth,
+                ),
+                Center(
+                  child: PriceHeader(
+                    height: size.height * 0.15,
+                    width: size.width * 0.8,
+                  ),
+                ),
+                Center(
+                  child: Transaction(
+                    width: maxAvailableWidth,
+                  ),
+                ),
+                CustomBottomNavBar(
+                    width: bottomNavBarWidth,
+                    height: bottomNavBarWidth / bottomNavBarAspectRatio),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

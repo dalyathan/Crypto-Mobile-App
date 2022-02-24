@@ -30,8 +30,7 @@ class PriceColumn extends StatelessWidget {
             child: Text(
               title,
               style: MyTheme.textStyle.copyWith(
-                color: MyTheme.grapeColor,
-              ),
+                  color: MyTheme.grapeColor, fontWeight: FontWeight.bold),
             ),
           ),
         ),

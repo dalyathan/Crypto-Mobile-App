@@ -24,20 +24,7 @@ class LineGraphPainter extends CustomPainter {
       graphOffsets
           .add(Offset(newX[pointIndex], size.height - newY[pointIndex]));
     }
-    // brush.shader = ui.Gradient.linear(
-    //   graphOffsets[0],
-    //   graphOffsets[graphOffsets.length - 1],
-    //   [
-    //     Colors.white,
-    //     MyTheme.grapeColor,
-    //   ],
-    // );
     Path graphPath = Path()..addPolygon(graphOffsets, false);
-    // List<Offset> shadowOffset = List<Offset>.from(graphOffsets);
-    // shadowOffset.insert(0, Offset(0, size.height * 0.8));
-    // shadowOffset.add(
-    //     Offset(graphOffsets[graphOffsets.length - 1].dx, shadowOffset[0].dy));
-    // Path shadowPath = Path()..addPolygon(shadowOffset, false);
     drawShadow(graphOffsets);
     canvas.drawPath(graphPath, brush..color = MyTheme.grapeColor);
   }
@@ -50,7 +37,7 @@ class LineGraphPainter extends CustomPainter {
         offsetCounter < graphOffsets.length - 1;
         offsetCounter++) {
       double ratio = 0.05;
-      double ratioIncrement = 0.1;
+      double ratioIncrement = 0.2;
       while (ratio < 1) {
         Offset point = between(graphOffsets[offsetCounter],
             graphOffsets[offsetCounter + 1], ratio);
@@ -60,7 +47,7 @@ class LineGraphPainter extends CustomPainter {
           Colors.white,
         ], [
           0.01,
-          0.4
+          0.5
         ]);
         canvas.drawLine(point, endOfShadow, brush);
         ratio += ratioIncrement;
