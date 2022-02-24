@@ -51,6 +51,28 @@ class Button3D extends StatelessWidget {
                 ],
                 tileMode: TileMode.decal),
           ),
+        ),
+        Positioned(
+          top: size - gradientHeight,
+          child: Container(
+            width: gradientWidth,
+            height: gradientHeight,
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              gradient: const LinearGradient(
+                  begin: Alignment(0, -1),
+                  end: Alignment(0, 1),
+                  colors: <Color>[
+                    Colors.black12,
+                    Colors.white10,
+                  ],
+                  stops: [
+                    0.8,
+                    0.9,
+                  ],
+                  tileMode: TileMode.decal),
+            ),
+          ),
         )
       ],
     );

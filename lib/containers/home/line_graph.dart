@@ -1,8 +1,5 @@
-import 'package:crypto_mobile_app/theme.dart';
+import 'package:crypto_mobile_app/painters/home/line_graph.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
-import '../../clippers/home/line_graph.dart';
 
 class LineGraph extends StatelessWidget {
   final Map<String, double> values;
@@ -17,13 +14,9 @@ class LineGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: LineGraphClipper(values),
-      child: Container(
-        height: height,
-        width: width,
-        color: MyTheme.grapeColor,
-      ),
+    return CustomPaint(
+      painter: LineGraphPainter(values),
+      size: Size(width, height),
     );
   }
 }

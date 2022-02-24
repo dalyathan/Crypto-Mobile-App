@@ -42,7 +42,7 @@ class Axes extends StatelessWidget {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: nthTiles.reversed
-                  .map((tileValue) => YAxisValue(
+                  .map((tileValue) => YAxisTile(
                         height: nthYTileHeight,
                         value: sortedYValues[tileValue].ceil(),
                         width: width,

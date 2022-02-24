@@ -3,13 +3,13 @@ import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class YAxisValue extends StatelessWidget {
+class YAxisTile extends StatelessWidget {
   final int value;
   final double width;
   final double height;
   final double xAxisLeftOffset;
   final NumberFormat oCcy = NumberFormat("#,##0.00", "en_US");
-  YAxisValue({
+  YAxisTile({
     Key? key,
     required this.value,
     required this.width,
@@ -29,8 +29,9 @@ class YAxisValue extends StatelessWidget {
         children: [
           SizedBox(
             height: height - (dashHeight + gapHeight),
+            width: xAxisLeftOffset,
             child: FittedBox(
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.contain,
               child: Text(
                 "\$${oCcy.format(value)}",
                 style: MyTheme.textStyle.copyWith(

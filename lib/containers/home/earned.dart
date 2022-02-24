@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme.dart';
-import 'button_3d.dart';
+import 'button3d.dart';
 import 'price_column.dart';
 
 class Earned extends StatelessWidget {
