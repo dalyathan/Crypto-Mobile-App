@@ -15,22 +15,53 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late double biggerCircleRadius;
+  late double transformationRadius;
+  late double smallerCircleRadius;
+  late double previousPageIconAngle;
+  late double currentPageIconAngle;
+  late double nextPageIconAngle;
 
   @override
   void initState() {
     super.initState();
 
     _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    biggerCircleRadius = 0.21 * widget.width;
+    transformationRadius = widget.height - biggerCircleRadius;
+    smallerCircleRadius = solveQuaratic(-2, widget.width,
+        pow(transformationRadius, 2) - (pow(widget.width, 2) / 4));
+
+    double nextPageIconStartAngle =
+        asin((smallerCircleRadius) / (transformationRadius));
+    double currentPageIconStartAngle = pi / 2 + nextPageIconStartAngle * 0.5;
+    double previousPageIconStartAngle = pi - nextPageIconStartAngle;
+
+    previousPageIconAngle = previousPageIconStartAngle;
+    currentPageIconAngle = currentPageIconStartAngle;
+    nextPageIconAngle = nextPageIconStartAngle;
+
+    _controller.addListener(() {
+      setState(() {
+        if (previousPageIconAngle >= currentPageIconStartAngle &&
+            previousPageIconAngle <= previousPageIconStartAngle) {
+          previousPageIconAngle -=
+              (previousPageIconStartAngle - currentPageIconStartAngle) *
+                  _controller.value;
+        }
+        // currentPageIconAngle -=
+        //     (currentPageIconStartAngle - currentPageIconEndAngle) *
+        //         _controller.value;
+        // nextPageIconAngle -=
+        //     (nextPageIconStartAngle - nextPageIconEndAngle) * _controller.value;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    double biggerCircleSize = 2 * 0.21 * widget.width;
-    double transformationRadius = widget.height - biggerCircleSize * 0.5;
-    double smallerCircleSize = solveQuaratic(-2, widget.width,
-            pow(transformationRadius, 2) - (pow(widget.width, 2) / 4)) *
-        2;
     return Container(
       width: widget.width,
       height: widget.height,
@@ -40,7 +71,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
         children: [
           Positioned(
             //left: (widget.width - biggerCircleSize) * 0.5,
-            bottom: widget.height - biggerCircleSize,
+            bottom: widget.height - 2 * biggerCircleRadius,
             child: Neumorphic(
                 style: const NeumorphicStyle(
                     shape: NeumorphicShape.concave,
@@ -49,27 +80,41 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
                     lightSource: LightSource.top,
                     color: Colors.green),
                 child: SizedBox(
-                  width: biggerCircleSize,
-                  height: biggerCircleSize,
+                  width: 2 * biggerCircleRadius,
+                  height: 2 * biggerCircleRadius,
                 )),
           ),
-          Positioned(
-              //top: widget.height - smallerCircleSize,
-              right: widget.width - smallerCircleSize,
+          Transform.translate(
+            offset: Offset(
+                (transformationRadius) * cos(previousPageIconAngle),
+                (-transformationRadius) * sin(previousPageIconAngle) +
+                    smallerCircleRadius),
+            child: InkWell(
+              onTap: () {
+                _controller.clearListeners();
+                _controller.forward();
+              },
               child: Container(
-                width: smallerCircleSize,
-                height: smallerCircleSize,
+                width: 2 * smallerCircleRadius,
+                height: 2 * smallerCircleRadius,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.red,
                 ),
-              )),
-          Positioned(
-              //top: widget.height - smallerCircleSize,
-              left: widget.width - smallerCircleSize,
+              ),
+            ),
+          ),
+          // Positioned(
+          //     //top: widget.height - smallerCircleSize,
+          //     left: widget.width - 2 * smallerCircleRadius,
+          Transform.translate(
+              offset: Offset(
+                  (transformationRadius) * cos(nextPageIconAngle),
+                  (-transformationRadius) * sin(nextPageIconAngle) +
+                      smallerCircleRadius),
               child: Container(
-                width: smallerCircleSize,
-                height: smallerCircleSize,
+                width: 2 * smallerCircleRadius,
+                height: 2 * smallerCircleRadius,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.blue,
@@ -79,6 +124,17 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
       ),
     );
   }
+
+  // previousPageAngleListener() {
+  //   setState(() {
+  //     if (previousPageIconAngle >= currentPageIconStartAngle &&
+  //         previousPageIconAngle <= previousPageIconStartAngle) {
+  //       previousPageIconAngle -=
+  //           (previousPageIconStartAngle - currentPageIconStartAngle) *
+  //               _controller.value;
+  //     }
+  //   });
+  // }
 
   double solveQuaratic(double a, double b, double c) {
     //a=-2, b= widget.width, c=transformationRadius**2 - (widget.width**2)/4
