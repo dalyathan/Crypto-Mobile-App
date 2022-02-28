@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'button3d.dart';
+import '../common/button3d.dart';
 import 'price_column.dart';
 
 class PeriodTotal extends StatelessWidget {
@@ -28,7 +28,9 @@ class PeriodTotal extends StatelessWidget {
       child: Row(
         children: [
           Button3D(
-            arrow: arrowIcon,
+            icon: SizedBox(
+                height: height * 0.6,
+                child: FittedBox(fit: BoxFit.fitHeight, child: arrowIcon)),
             buttonColor: backgroundColor,
             size: height,
           ),

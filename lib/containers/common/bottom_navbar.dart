@@ -1,11 +1,22 @@
+import 'package:crypto_mobile_app/containers/common/button3d.dart';
+import 'package:crypto_mobile_app/containers/common/bigger_navbar_icon.dart';
+import 'package:crypto_mobile_app/containers/common/smaller_navbar_icon.dart';
+import 'package:crypto_mobile_app/icons/common/folder.dart';
+import 'package:crypto_mobile_app/icons/common/house.dart';
+import 'package:crypto_mobile_app/icons/common/person.dart';
+import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:math';
 
 class CustomBottomNavBar extends StatefulWidget {
   final double height;
   final double width;
+  final bool isHomePage;
   const CustomBottomNavBar(
-      {Key? key, required this.height, required this.width})
+      {Key? key,
+      required this.height,
+      required this.width,
+      this.isHomePage = false})
       : super(key: key);
 
   @override
@@ -14,127 +25,55 @@ class CustomBottomNavBar extends StatefulWidget {
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
   late double biggerCircleRadius;
   late double transformationRadius;
   late double smallerCircleRadius;
-  late double previousPageIconAngle;
-  late double currentPageIconAngle;
-  late double nextPageIconAngle;
 
   @override
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
-
     biggerCircleRadius = 0.21 * widget.width;
     transformationRadius = widget.height - biggerCircleRadius;
     smallerCircleRadius = solveQuaratic(-2, widget.width,
         pow(transformationRadius, 2) - (pow(widget.width, 2) / 4));
-
-    double nextPageIconStartAngle =
-        asin((smallerCircleRadius) / (transformationRadius));
-    double currentPageIconStartAngle = pi / 2 + nextPageIconStartAngle * 0.5;
-    double previousPageIconStartAngle = pi - nextPageIconStartAngle;
-
-    previousPageIconAngle = previousPageIconStartAngle;
-    currentPageIconAngle = currentPageIconStartAngle;
-    nextPageIconAngle = nextPageIconStartAngle;
-
-    _controller.addListener(() {
-      setState(() {
-        if (previousPageIconAngle >= currentPageIconStartAngle &&
-            previousPageIconAngle <= previousPageIconStartAngle) {
-          previousPageIconAngle -=
-              (previousPageIconStartAngle - currentPageIconStartAngle) *
-                  _controller.value;
-        }
-        // currentPageIconAngle -=
-        //     (currentPageIconStartAngle - currentPageIconEndAngle) *
-        //         _controller.value;
-        // nextPageIconAngle -=
-        //     (nextPageIconStartAngle - nextPageIconEndAngle) * _controller.value;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    double iconWidth = smallerCircleRadius * 1.2;
+    return SizedBox(
       width: widget.width,
       height: widget.height,
-      color: Colors.amber,
       child: Stack(
         alignment: const Alignment(0, 1),
+        clipBehavior: Clip.none,
         children: [
           Positioned(
-            //left: (widget.width - biggerCircleSize) * 0.5,
-            bottom: widget.height - 2 * biggerCircleRadius,
-            child: Neumorphic(
-                style: const NeumorphicStyle(
-                    shape: NeumorphicShape.concave,
-                    boxShape: NeumorphicBoxShape.circle(),
-                    depth: -18,
-                    lightSource: LightSource.top,
-                    color: Colors.green),
-                child: SizedBox(
-                  width: 2 * biggerCircleRadius,
-                  height: 2 * biggerCircleRadius,
+              bottom: widget.height - 2 * biggerCircleRadius,
+              child: BiggerNavBarIcon(
+                  radius: biggerCircleRadius,
+                  icon: HouseIcon(width: iconWidth))),
+          Positioned(
+            left: 0,
+            child: SmallerNavBarIcon(
+                radius: smallerCircleRadius,
+                icon: FolderIcon(
+                  width: iconWidth,
                 )),
           ),
-          Transform.translate(
-            offset: Offset(
-                (transformationRadius) * cos(previousPageIconAngle),
-                (-transformationRadius) * sin(previousPageIconAngle) +
-                    smallerCircleRadius),
-            child: InkWell(
-              onTap: () {
-                _controller.clearListeners();
-                _controller.forward();
-              },
-              child: Container(
-                width: 2 * smallerCircleRadius,
-                height: 2 * smallerCircleRadius,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ),
-          // Positioned(
-          //     //top: widget.height - smallerCircleSize,
-          //     left: widget.width - 2 * smallerCircleRadius,
-          Transform.translate(
-              offset: Offset(
-                  (transformationRadius) * cos(nextPageIconAngle),
-                  (-transformationRadius) * sin(nextPageIconAngle) +
-                      smallerCircleRadius),
-              child: Container(
-                width: 2 * smallerCircleRadius,
-                height: 2 * smallerCircleRadius,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue,
-                ),
-              ))
+          Positioned(
+            right: 0,
+            child: SmallerNavBarIcon(
+                radius: smallerCircleRadius,
+                icon: PersonIcon(
+                  width: iconWidth,
+                )),
+          )
         ],
       ),
     );
   }
-
-  // previousPageAngleListener() {
-  //   setState(() {
-  //     if (previousPageIconAngle >= currentPageIconStartAngle &&
-  //         previousPageIconAngle <= previousPageIconStartAngle) {
-  //       previousPageIconAngle -=
-  //           (previousPageIconStartAngle - currentPageIconStartAngle) *
-  //               _controller.value;
-  //     }
-  //   });
-  // }
 
   double solveQuaratic(double a, double b, double c) {
     //a=-2, b= widget.width, c=transformationRadius**2 - (widget.width**2)/4

@@ -11,7 +11,9 @@ import 'transaction_types.dart';
 
 class Transaction extends StatefulWidget {
   final double width;
-  const Transaction({Key? key, required this.width}) : super(key: key);
+  final double height;
+  const Transaction({Key? key, required this.width, required this.height})
+      : super(key: key);
 
   @override
   _TransactionState createState() => _TransactionState();
@@ -41,27 +43,31 @@ class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        TimePeriod(
-            dropdownItems: dropdownItems,
-            dropdownValue: selectedTimePeriod,
-            rangeOfDays: rangeOfDays,
-            updatePeriod: periodIsUpdated,
-            width: widget.width),
-        TransactionTypes(
-          width: widget.width,
-          graphEarning: graphEarning,
-          graphSpending: graphSpending,
-          periodEarning: periodEarning,
-          periodSpending: periodSpending,
-        ),
-        Graph(
-          height: size.height * 0.35,
-          width: widget.width,
-          graphValues: graphValues,
-        )
-      ],
+    return SizedBox(
+      height: widget.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TimePeriod(
+              dropdownItems: dropdownItems,
+              dropdownValue: selectedTimePeriod,
+              rangeOfDays: rangeOfDays,
+              updatePeriod: periodIsUpdated,
+              width: widget.width),
+          TransactionTypes(
+            width: widget.width,
+            graphEarning: graphEarning,
+            graphSpending: graphSpending,
+            periodEarning: periodEarning,
+            periodSpending: periodSpending,
+          ),
+          Graph(
+            height: size.height * 0.35,
+            width: widget.width,
+            graphValues: graphValues,
+          )
+        ],
+      ),
     );
   }
 

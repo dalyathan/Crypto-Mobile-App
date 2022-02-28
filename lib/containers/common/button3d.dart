@@ -3,12 +3,12 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../painters/home/button_shadow.dart';
 
 class Button3D extends StatelessWidget {
-  final Widget arrow;
+  final Widget icon;
   final Color buttonColor;
   final double size;
   const Button3D(
       {Key? key,
-      required this.arrow,
+      required this.icon,
       required this.buttonColor,
       required this.size})
       : super(key: key);
@@ -34,10 +34,7 @@ class Button3D extends StatelessWidget {
             width: size,
             height: size,
             child: Center(
-              child: SizedBox(
-                height: size * 0.6,
-                child: FittedBox(fit: BoxFit.fitHeight, child: arrow),
-              ),
+              child: icon,
             ),
             decoration: BoxDecoration(
               color: Color.lerp(buttonColor, Colors.white, 0.1),

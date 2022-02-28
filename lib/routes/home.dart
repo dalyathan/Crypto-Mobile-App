@@ -11,21 +11,21 @@ class HomeRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double horizonalPaddingRatio = 0.075;
-    double topPaddingRatio = 0.05;
     Size size = MediaQuery.of(context).size;
     double appBarHeightRatio = 0.075;
     double maxAvailableWidth = size.width * (1 - 2 * horizonalPaddingRatio);
     double bottomNavBarWidth = maxAvailableWidth * 0.7;
     double bottomNavBarAspectRatio = 1.66;
+    double transactionHeight = 0.525 * size.height;
     return SafeArea(
       child: SafeArea(
         child: Scaffold(
           body: Padding(
             padding: EdgeInsets.only(
-                top: size.height * topPaddingRatio,
                 left: size.width * horizonalPaddingRatio,
                 right: size.width * horizonalPaddingRatio),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CustomAppBar(
                   height: size.height * appBarHeightRatio,
@@ -40,6 +40,7 @@ class HomeRoute extends StatelessWidget {
                 Center(
                   child: Transaction(
                     width: maxAvailableWidth,
+                    height: transactionHeight,
                   ),
                 ),
                 CustomBottomNavBar(
