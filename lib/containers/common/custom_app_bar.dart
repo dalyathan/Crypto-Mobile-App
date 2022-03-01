@@ -1,4 +1,3 @@
-import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../icons/common/four_dots.dart';
@@ -11,10 +10,14 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData appBarTheme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        FourDotsIcon(height: height * 0.6),
+        FourDotsIcon(
+          height: height * 0.6,
+          iconColor: appBarTheme.canvasColor,
+        ),
         Container(
           width: height,
           height: height,
@@ -24,7 +27,7 @@ class CustomAppBar extends StatelessWidget {
                   width: height * 0.7,
                   child: Image.asset('assets/images/me.png'))),
           decoration: BoxDecoration(
-              border: Border.all(color: MyTheme.grapeColor, width: 0.5),
+              border: Border.all(color: appBarTheme.cardColor, width: 0.5),
               borderRadius: BorderRadius.circular(height * 0.2)),
         )
       ],

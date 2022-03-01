@@ -1,3 +1,4 @@
+import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../containers/common/bottom_navbar.dart';
@@ -27,9 +28,14 @@ class HomeRoute extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomAppBar(
-                  height: size.height * appBarHeightRatio,
-                  width: maxAvailableWidth,
+                Theme(
+                  data: ThemeData(
+                      canvasColor: MyTheme.grapeColor,
+                      cardColor: MyTheme.mildYellowish),
+                  child: CustomAppBar(
+                    height: size.height * appBarHeightRatio,
+                    width: maxAvailableWidth,
+                  ),
                 ),
                 Center(
                   child: PriceHeader(

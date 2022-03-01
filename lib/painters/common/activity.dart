@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class FolderPainter extends CustomPainter {
+class ActivityPainter extends CustomPainter {
   late Paint brush;
   late Canvas myCanvas;
   @override

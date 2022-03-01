@@ -1,15 +1,16 @@
 import 'dart:math';
 
-import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class LineGraphPainter extends CustomPainter {
   final Map<String, double> graphValues;
+  final bool withShadow;
+  final Color lineColor;
   late Size size;
   late Canvas canvas;
 
-  LineGraphPainter(this.graphValues);
+  LineGraphPainter(this.graphValues, this.withShadow, this.lineColor);
   @override
   void paint(Canvas canvas, Size size) {
     Paint brush = Paint()
@@ -25,8 +26,10 @@ class LineGraphPainter extends CustomPainter {
           .add(Offset(newX[pointIndex], size.height - newY[pointIndex]));
     }
     Path graphPath = Path()..addPolygon(graphOffsets, false);
-    drawShadow(graphOffsets);
-    canvas.drawPath(graphPath, brush..color = MyTheme.grapeColor);
+    if (withShadow) {
+      drawShadow(graphOffsets);
+    }
+    canvas.drawPath(graphPath, brush..color = lineColor);
   }
 
   drawShadow(List<Offset> graphOffsets) {
@@ -37,7 +40,7 @@ class LineGraphPainter extends CustomPainter {
         offsetCounter < graphOffsets.length - 1;
         offsetCounter++) {
       double ratio = 0.05;
-      double ratioIncrement = 0.2;
+      double ratioIncrement = 0.175;
       while (ratio < 1) {
         Offset point = between(graphOffsets[offsetCounter],
             graphOffsets[offsetCounter + 1], ratio);

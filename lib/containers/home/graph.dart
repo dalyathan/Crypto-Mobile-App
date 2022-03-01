@@ -16,7 +16,7 @@ class Graph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int tiles = 5;
+    int tiles = 4;
     double xAxisHeight = height * 0.125;
     double nthYTileHeight = ((height - xAxisHeight) / (tiles + 1)) * 0.5;
     double xAxisLeftOffset = width * 0.125;

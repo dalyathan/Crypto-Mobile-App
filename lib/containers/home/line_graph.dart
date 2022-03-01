@@ -1,4 +1,5 @@
 import 'package:crypto_mobile_app/painters/home/line_graph.dart';
+import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 
 class LineGraph extends StatelessWidget {
@@ -15,7 +16,7 @@ class LineGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: LineGraphPainter(values),
+      painter: LineGraphPainter(values, true, MyTheme.grapeColor),
       size: Size(width, height),
     );
   }

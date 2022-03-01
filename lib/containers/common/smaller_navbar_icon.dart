@@ -16,7 +16,7 @@ class SmallerNavBarIcon extends StatelessWidget {
       child: NavBarIcon(
         radius: radius,
         icon: icon,
-        shadowDepth: 18,
+        shadowDepth: 1,
       ),
     );
   }

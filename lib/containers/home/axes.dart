@@ -60,7 +60,7 @@ class Axes extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: nthTiles
                   .map((tile) => SizedBox(
-                      width: (xAxisWidth / tiles) * 0.8,
+                      width: (xAxisWidth / tiles) * 0.6,
                       height: xAxisHeight * 0.5,
                       child: FittedBox(
                           fit: BoxFit.fill, child: Text(xValues[tile]))))

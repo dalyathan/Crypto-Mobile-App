@@ -1,10 +1,10 @@
-import 'package:crypto_mobile_app/containers/common/button3d.dart';
 import 'package:crypto_mobile_app/containers/common/bigger_navbar_icon.dart';
 import 'package:crypto_mobile_app/containers/common/smaller_navbar_icon.dart';
-import 'package:crypto_mobile_app/icons/common/folder.dart';
+import 'package:crypto_mobile_app/icons/common/activity.dart';
 import 'package:crypto_mobile_app/icons/common/house.dart';
 import 'package:crypto_mobile_app/icons/common/person.dart';
-import 'package:crypto_mobile_app/theme.dart';
+import 'package:crypto_mobile_app/routes/activity.dart';
+import 'package:crypto_mobile_app/routes/home.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:math';
 
@@ -16,7 +16,7 @@ class CustomBottomNavBar extends StatefulWidget {
       {Key? key,
       required this.height,
       required this.width,
-      this.isHomePage = false})
+      this.isHomePage = true})
       : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
 
   @override
   Widget build(BuildContext context) {
-    double iconWidth = smallerCircleRadius * 1.2;
+    double iconWidth = smallerCircleRadius * 0.85;
     return SizedBox(
       width: widget.width,
       height: widget.height,
@@ -50,17 +50,41 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
         clipBehavior: Clip.none,
         children: [
           Positioned(
-              bottom: widget.height - 2 * biggerCircleRadius,
-              child: BiggerNavBarIcon(
-                  radius: biggerCircleRadius,
-                  icon: HouseIcon(width: iconWidth))),
+            bottom: widget.height - 2 * biggerCircleRadius,
+            child: BiggerNavBarIcon(
+              radius: biggerCircleRadius,
+              icon: widget.isHomePage
+                  ? HouseIcon(width: iconWidth)
+                  : ActivityIcon(
+                      width: iconWidth,
+                    ),
+            ),
+          ),
           Positioned(
             left: 0,
-            child: SmallerNavBarIcon(
-                radius: smallerCircleRadius,
-                icon: FolderIcon(
-                  width: iconWidth,
-                )),
+            child: InkResponse(
+              onTap: () {
+                if (widget.isHomePage) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ActivityRoute()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeRoute()),
+                  );
+                }
+              },
+              child: SmallerNavBarIcon(
+                  radius: smallerCircleRadius,
+                  icon: widget.isHomePage
+                      ? ActivityIcon(
+                          width: iconWidth,
+                        )
+                      : HouseIcon(width: iconWidth)),
+            ),
           ),
           Positioned(
             right: 0,
