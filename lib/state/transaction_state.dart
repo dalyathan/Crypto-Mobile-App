@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 
 class TransactionState {
-  static const List<String> _periods = [
+  static const List<String> periods = [
     '1 Month',
     '3 Months',
     '6 Months',
     '1 Year'
   ];
   static Map<String, int> daysAgo = {
-    _periods[0]: 30,
-    _periods[1]: 90,
-    _periods[2]: 180,
-    _periods[3]: 365
+    periods[0]: 30,
+    periods[1]: 90,
+    periods[2]: 180,
+    periods[3]: 365
   };
   static final DateFormat _monthFormat = DateFormat("MMM");
 
@@ -24,7 +24,7 @@ class TransactionState {
     Map<String, String> timePeriods = {};
     DateTime today = DateTime.now();
 
-    for (String period in _periods) {
+    for (String period in periods) {
       DateTime ago = today.subtract(Duration(days: daysAgo[period]!));
       timePeriods[period] =
           '${_monthFormat.format(ago)} ${ago.day} - ${_monthFormat.format(today)} ${today.day}';
@@ -75,19 +75,19 @@ class TransactionState {
 
   static double getSpentAmount(String timePeriod) {
     return {
-      _periods[0]: 1460.00,
-      _periods[1]: 4889.00,
-      _periods[2]: 8567.00,
-      _periods[3]: 17789.00
+      periods[0]: 1460.00,
+      periods[1]: 4889.00,
+      periods[2]: 8567.00,
+      periods[3]: 17789.00
     }[timePeriod]!;
   }
 
   static double getEarnedAmount(String timePeriod) {
     return {
-      _periods[0]: 2730.00,
-      _periods[1]: 7789.00,
-      _periods[2]: 16956.00,
-      _periods[3]: 32239.00
+      periods[0]: 2730.00,
+      periods[1]: 7789.00,
+      periods[2]: 16956.00,
+      periods[3]: 32239.00
     }[timePeriod]!;
   }
 }

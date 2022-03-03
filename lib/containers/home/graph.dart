@@ -1,6 +1,7 @@
 import 'package:crypto_mobile_app/containers/home/line_graph.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme.dart';
 import 'axes.dart';
 
 class Graph extends StatelessWidget {
@@ -39,6 +40,7 @@ class Graph extends StatelessWidget {
               height: height - (xAxisHeight + nthYTileHeight),
               width: width - xAxisLeftOffset,
               values: graphValues,
+              lineColor: MyTheme.grapeColor,
             ))
       ],
     );

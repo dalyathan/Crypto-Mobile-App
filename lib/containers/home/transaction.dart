@@ -1,10 +1,6 @@
-import 'package:crypto_mobile_app/containers/home/spent.dart';
-
 import '../../state/transaction_state.dart';
 import 'package:flutter/material.dart';
 
-import 'earned.dart';
-import 'axes.dart';
 import 'graph.dart';
 import 'time_period.dart';
 import 'transaction_types.dart';

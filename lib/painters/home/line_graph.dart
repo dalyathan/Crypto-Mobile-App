@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -47,7 +48,7 @@ class LineGraphPainter extends CustomPainter {
         Offset endOfShadow = Offset(point.dx, size.height);
         brush.shader = ui.Gradient.linear(point, endOfShadow, [
           const Color.fromRGBO(162, 163, 220, 0.1),
-          Colors.white,
+          Colors.transparent,
         ], [
           0.01,
           0.5
