@@ -1,4 +1,4 @@
-import 'package:crypto_mobile_app/painters/home/line_graph.dart';
+import 'package:crypto_mobile_app/painters/common/line_graph.dart';
 import 'package:flutter/material.dart';
 
 class LineGraph extends StatelessWidget {

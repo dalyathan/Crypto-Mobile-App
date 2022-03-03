@@ -53,7 +53,6 @@ class ActivityRoute extends StatelessWidget {
                     height: activityBarHeight,
                     abbreviation: 'BTC',
                     currentValue: 25.30,
-                    graphValues: {},
                     icon: Bitcoin(size: activityBarIconSize),
                     name: 'BitCoin',
                     percent: 1.68,
@@ -61,8 +60,7 @@ class ActivityRoute extends StatelessWidget {
                   ActivityBar(
                     height: activityBarHeight,
                     abbreviation: 'ETH',
-                    currentValue: 13.410,
-                    graphValues: {},
+                    currentValue: 13.41,
                     icon: Ethereum(size: activityBarIconSize),
                     name: 'Ethereum',
                     percent: 1.68,
@@ -71,7 +69,6 @@ class ActivityRoute extends StatelessWidget {
                     height: activityBarHeight,
                     abbreviation: 'BIN',
                     currentValue: 9.44,
-                    graphValues: {},
                     name: 'Binance',
                     icon: BinanceCoinIcon(
                       size: activityBarIconSize,

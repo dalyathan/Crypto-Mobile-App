@@ -11,15 +11,16 @@ class Bitcoin extends StatelessWidget {
   Widget build(BuildContext context) {
     double borderRadius = size * 0.2;
     return Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-            color: MyTheme.yellowish,
-            borderRadius: BorderRadius.circular(borderRadius)),
-        child: Icon(
-          FontAwesomeIcons.bitcoin,
-          size: size * 0.8,
-          color: Colors.white,
-        ));
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+          color: MyTheme.yellowish,
+          borderRadius: BorderRadius.circular(borderRadius)),
+      child: Icon(
+        FontAwesomeIcons.bitcoin,
+        size: size * 0.8,
+        color: Colors.white,
+      ),
+    );
   }
 }

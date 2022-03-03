@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -15,7 +14,7 @@ class LineGraphPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint brush = Paint()
-      ..strokeWidth = 3
+      ..strokeWidth = size.width * 0.01
       ..style = PaintingStyle.stroke;
     this.canvas = canvas;
     this.size = size;
@@ -35,7 +34,7 @@ class LineGraphPainter extends CustomPainter {
 
   drawShadow(List<Offset> graphOffsets) {
     Paint brush = Paint()
-      ..strokeWidth = 3
+      ..strokeWidth = size.width * 0.01
       ..style = PaintingStyle.stroke;
     for (int offsetCounter = 0;
         offsetCounter < graphOffsets.length - 1;

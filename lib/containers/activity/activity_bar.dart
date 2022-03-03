@@ -10,7 +10,6 @@ class ActivityBar extends StatelessWidget {
   final Widget icon;
   final String name;
   final String abbreviation;
-  final Map<String, double> graphValues;
   final double currentValue;
   final double percent;
   const ActivityBar(
@@ -19,7 +18,6 @@ class ActivityBar extends StatelessWidget {
       required this.icon,
       required this.name,
       required this.abbreviation,
-      required this.graphValues,
       required this.currentValue,
       required this.percent})
       : super(key: key);
