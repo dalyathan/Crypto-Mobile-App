@@ -1,5 +1,5 @@
-import 'package:crypto_mobile_app/containers/activity/activity_bar.dart';
-import 'package:crypto_mobile_app/containers/activity/cards.dart';
+import 'package:crypto_mobile_app/components/activity/activity_bar.dart';
+import 'package:crypto_mobile_app/components/activity/cards.dart';
 import 'package:crypto_mobile_app/icons/activity/binance.dart';
 import 'package:crypto_mobile_app/icons/activity/bitcoin.dart';
 import 'package:crypto_mobile_app/icons/activity/etherum.dart';
@@ -7,8 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 
-import '../containers/common/bottom_navbar.dart';
-import '../containers/common/custom_app_bar.dart';
+import '../components/common/bottom_navbar.dart';
+import '../components/common/custom_app_bar.dart';
 
 class ActivityRoute extends StatelessWidget {
   const ActivityRoute({Key? key}) : super(key: key);

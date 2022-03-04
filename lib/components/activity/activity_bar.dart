@@ -1,4 +1,4 @@
-import 'package:crypto_mobile_app/containers/home/line_graph.dart';
+import 'package:crypto_mobile_app/components/home/line_graph.dart';
 import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,13 +48,15 @@ class ActivityBar extends StatelessWidget {
                       )),
                 ),
                 SizedBox(
-                    height: height * 0.15,
-                    child: FittedBox(
-                        fit: BoxFit.fitHeight,
-                        child: Text(
-                          abbreviation,
-                          style: GoogleFonts.sora(color: Colors.white),
-                        )))
+                  height: height * 0.15,
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Text(
+                      abbreviation,
+                      style: GoogleFonts.sora(color: Colors.white),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

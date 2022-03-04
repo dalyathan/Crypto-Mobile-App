@@ -1,10 +1,10 @@
 import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 
-import '../containers/common/bottom_navbar.dart';
-import '../containers/common/custom_app_bar.dart';
-import '../containers/home/price_header.dart';
-import '../containers/home/transaction.dart';
+import '../components/common/bottom_navbar.dart';
+import '../components/common/custom_app_bar.dart';
+import '../components/home/price_header.dart';
+import '../components/home/transaction.dart';
 
 class HomeRoute extends StatelessWidget {
   const HomeRoute({Key? key}) : super(key: key);

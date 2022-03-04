@@ -1,4 +1,4 @@
-import 'package:crypto_mobile_app/containers/home/period_total.dart';
+import 'package:crypto_mobile_app/components/home/period_total.dart';
 import 'package:crypto_mobile_app/theme.dart';
 import 'package:flutter/material.dart';
 

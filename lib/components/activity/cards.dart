@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:crypto_mobile_app/containers/activity/card.dart' as activity;
+import 'package:crypto_mobile_app/components/activity/card.dart' as activity;
 import 'package:flutter/material.dart';
 
 class Cards extends StatelessWidget {
@@ -16,11 +16,6 @@ class Cards extends StatelessWidget {
     return Container(
       height: height,
       width: size.width,
-      decoration: BoxDecoration(
-          border: Border.all(
-              width: 5,
-              color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0))),
       child: Stack(
         children: [
           Positioned(

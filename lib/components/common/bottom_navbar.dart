@@ -1,5 +1,5 @@
-import 'package:crypto_mobile_app/containers/common/bigger_navbar_icon.dart';
-import 'package:crypto_mobile_app/containers/common/smaller_navbar_icon.dart';
+import 'package:crypto_mobile_app/components/common/bigger_navbar_icon.dart';
+import 'package:crypto_mobile_app/components/common/smaller_navbar_icon.dart';
 import 'package:crypto_mobile_app/icons/common/activity.dart';
 import 'package:crypto_mobile_app/icons/common/house.dart';
 import 'package:crypto_mobile_app/icons/common/person.dart';

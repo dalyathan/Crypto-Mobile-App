@@ -1,4 +1,4 @@
-import 'package:crypto_mobile_app/containers/home/line_graph.dart';
+import 'package:crypto_mobile_app/components/home/line_graph.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme.dart';

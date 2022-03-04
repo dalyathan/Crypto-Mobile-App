@@ -8,12 +8,12 @@ class BlurryRRectPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var borderRadius = size.height * borderRadiusRatio;
-    var thickness = size.width * 0.05;
+    var thickness = size.width * 0.075;
     Paint brush = Paint()
       ..strokeWidth = thickness
       ..style = PaintingStyle.stroke
       // ..blendMode = BlendMode.hue;
-      // ..color = Colors.transparent
+      ..color = Colors.transparent
       ..maskFilter = MaskFilter.blur(BlurStyle.inner, thickness);
     canvas.drawRRect(
         RRect.fromRectAndRadius(
