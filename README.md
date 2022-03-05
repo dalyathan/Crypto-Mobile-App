@@ -2,7 +2,7 @@
 
 A flutter implementation of [Crypto Mobile App Design](https://dribbble.com/shots/15931039-Crypto-Mobile-App-Design) by [Ghulam Rasool](https://dribbble.com/ghulaam-rasool)
 
-Get the "app" [here]() (not finished yet)
+Get the "app" [here](https://github.com/surafelMelese/Crypto-Mobile-App/raw/main/app-release.apk)
 
 
 ![Design](https://cdn.dribbble.com/users/1615584/screenshots/15931039/media/4e9ad324083fbd6c47bf538039d861cf.jpg)
